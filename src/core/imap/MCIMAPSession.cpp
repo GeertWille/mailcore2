@@ -369,6 +369,7 @@ void IMAPSession::init()
     mAuthType = AuthTypeSASLNone;
     mConnectionType = ConnectionTypeClear;
     mCheckCertificateEnabled = true;
+    mCertificatePath = MCSTR("/system/etc/security/cacerts");
     mVoIPEnabled = true;
     mDelimiter = 0;
     
@@ -431,6 +432,7 @@ IMAPSession::~IMAPSession()
     MC_SAFE_RELEASE(mUsername);
     MC_SAFE_RELEASE(mPassword);
     MC_SAFE_RELEASE(mOAuth2Token);
+    MC_SAFE_RELEASE(mCertificatePath);
     MC_SAFE_RELEASE(mWelcomeString);
     MC_SAFE_RELEASE(mDefaultNamespace);
     MC_SAFE_RELEASE(mCurrentFolder);
@@ -526,6 +528,16 @@ void IMAPSession::setCheckCertificateEnabled(bool enabled)
 bool IMAPSession::isCheckCertificateEnabled()
 {
     return mCheckCertificateEnabled;
+}
+
+void IMAPSession::setCertificatePath(String * certificatePath)
+{
+    MC_SAFE_REPLACE_COPY(String, mCertificatePath, certificatePath);
+}
+
+String * IMAPSession::certificatePath()
+{
+    return mCertificatePath;
 }
 
 void IMAPSession::setVoIPEnabled(bool enabled)

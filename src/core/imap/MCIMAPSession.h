@@ -55,7 +55,10 @@ namespace mailcore {
         
         virtual void setCheckCertificateEnabled(bool enabled);
         virtual bool isCheckCertificateEnabled();
-        
+
+        virtual void setCertificatePath(String * certificatePath);
+        virtual String * certificatePath();
+
         virtual void setVoIPEnabled(bool enabled);
         virtual bool isVoIPEnabled();
         
@@ -243,6 +246,7 @@ namespace mailcore {
         AuthType mAuthType;
         ConnectionType mConnectionType;
         bool mCheckCertificateEnabled;
+        String * mCertificatePath;
         bool mVoIPEnabled;
         char mDelimiter;
         IMAPNamespace * mDefaultNamespace;

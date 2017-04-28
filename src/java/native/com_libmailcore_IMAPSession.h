@@ -155,6 +155,22 @@ JNIEXPORT jboolean JNICALL Java_com_libmailcore_IMAPSession_isCheckCertificateEn
 
 /*
  * Class:     com_libmailcore_IMAPSession
+ * Method:    setCertificatePath
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_libmailcore_IMAPSession_setCertificatePath
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_libmailcore_IMAPSession
+ * Method:    certificatePath
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_libmailcore_IMAPSession_certificatePath
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_libmailcore_IMAPSession
  * Method:    setDefaultNamespace
  * Signature: (Lcom/libmailcore/IMAPNamespace;)V
  */

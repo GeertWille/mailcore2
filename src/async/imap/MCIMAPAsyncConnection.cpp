@@ -217,6 +217,16 @@ bool IMAPAsyncConnection::isCheckCertificateEnabled()
     return mSession->isCheckCertificateEnabled();
 }
 
+void IMAPAsyncConnection::setCertificatePath(String * certificatePath)
+{
+    mSession->setCertificatePath(certificatePath);
+}
+
+String * IMAPAsyncConnection::certificatePath()
+{
+    return mSession->certificatePath();
+}
+
 void IMAPAsyncConnection::setVoIPEnabled(bool enabled)
 {
     mSession->setVoIPEnabled(enabled);

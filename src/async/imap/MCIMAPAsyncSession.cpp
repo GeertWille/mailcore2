@@ -64,6 +64,7 @@ IMAPAsyncSession::IMAPAsyncSession()
     mAuthType = AuthTypeSASLNone;
     mConnectionType = ConnectionTypeClear;
     mCheckCertificateEnabled = true;
+    mCertificatePath = MCSTR("/system/etc/security/cacerts");
     mVoIPEnabled = true;
     mDefaultNamespace = NULL;
     mTimeout = 30.;
@@ -95,6 +96,7 @@ IMAPAsyncSession::~IMAPAsyncSession()
     MC_SAFE_RELEASE(mUsername);
     MC_SAFE_RELEASE(mPassword);
     MC_SAFE_RELEASE(mOAuth2Token);
+    MC_SAFE_RELEASE(mCertificatePath);
     MC_SAFE_RELEASE(mDefaultNamespace);
 }
 
@@ -188,6 +190,16 @@ bool IMAPAsyncSession::isCheckCertificateEnabled()
     return mCheckCertificateEnabled;
 }
 
+void IMAPAsyncSession::setCertificatePath(String * certificatePath)
+{
+    MC_SAFE_REPLACE_COPY(String, mCertificatePath, certificatePath);
+}
+
+String * IMAPAsyncSession::certificatePath()
+{
+    return mCertificatePath;
+}
+
 void IMAPAsyncSession::setVoIPEnabled(bool enabled)
 {
     mVoIPEnabled = enabled;
@@ -269,6 +281,7 @@ IMAPAsyncConnection * IMAPAsyncSession::session()
     session->setConnectionType(mConnectionType);
     session->setTimeout(mTimeout);
     session->setCheckCertificateEnabled(mCheckCertificateEnabled);
+    session->setCertificatePath(mCertificatePath);
     session->setVoIPEnabled(mVoIPEnabled);
     session->setDefaultNamespace(mDefaultNamespace);
     session->setClientIdentity(mClientIdentity);

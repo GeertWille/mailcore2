@@ -27,6 +27,11 @@
 
 bool mailcore::checkCertificate(mailstream * stream, String * hostname)
 {
+    mailcore::checkCertificate(MCSTR("/system/etc/security/cacerts"), stream, hostname);
+}
+
+bool mailcore::checkCertificate(String * certificatePath, mailstream * stream, String * hostname)
+{
 #if __APPLE__
     bool result = false;
     CFStringRef hostnameCFString;
@@ -137,13 +142,13 @@ err:
 	}
 	CertCloseStore(systemStore, 0);
 #elif defined(ANDROID) || defined(__ANDROID__)
-    dir = opendir("/system/etc/security/cacerts");
+    dir = opendir(certificatePath->UTF8Characters());
     while (ent = readdir(dir)) {
         if (ent->d_name[0] == '.') {
             continue;
         }
         char filename[1024];
-        snprintf(filename, sizeof(filename), "/system/etc/security/cacerts/%s", ent->d_name);
+        snprintf(filename, sizeof(filename), "%s/%s", certificatePath->UTF8Characters(), ent->d_name);
         f = fopen(filename, "rb");
         if (f != NULL) {
             X509 * cert = PEM_read_X509(f, NULL, NULL, NULL);

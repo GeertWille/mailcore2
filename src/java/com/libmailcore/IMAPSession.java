@@ -72,6 +72,11 @@ public class IMAPSession extends NativeObject {
     public native void setCheckCertificateEnabled(boolean enabled);
     /** Returns whether the certificate of the server should be checked. */
     public native boolean isCheckCertificateEnabled();
+
+    /** Sets the path where the certificates are present. */
+    public native void setCertificatePath(String certificatePath);
+    /** Return where the certificates are present. */
+    public native String certificatePath();
     
     /** Sets the default namespace. */
     public native void setDefaultNamespace(IMAPNamespace ns);

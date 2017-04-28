@@ -16,6 +16,7 @@
 namespace mailcore {
     
     bool checkCertificate(mailstream * stream, String * hostname);
+    bool checkCertificate(String * certificatePath, mailstream * stream, String * hostname);
     
 }
 
