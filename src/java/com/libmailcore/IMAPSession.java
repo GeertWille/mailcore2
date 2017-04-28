@@ -149,6 +149,8 @@ public class IMAPSession extends NativeObject {
     /** Returns an operation to unsubscribe a folder. */
     public native IMAPOperation unsubscribeFolderOperation(String folder);
     
+    public native IMAPCustomCommandOperation customCommand(String command, boolean urgent);
+    
     /** Returns an operation to append a message to a folder. */
     public native IMAPAppendMessageOperation appendMessageOperation(String folder, byte[] messageData, int messageFlags, List<String> customFlags);
     /** Returns an operation to append a message to a folder. */

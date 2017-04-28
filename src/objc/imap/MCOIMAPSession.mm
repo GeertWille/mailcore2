@@ -257,6 +257,12 @@ MCO_OBJC_SYNTHESIZE_SCALAR(dispatch_queue_t, dispatch_queue_t, setDispatchQueue,
     return OPAQUE_OPERATION(coreOp);
 }
 
+- (MCOIMAPOperation *) customCommandOperation:(NSString *)command
+{
+    IMAPOperation *coreOp = MCO_NATIVE_INSTANCE->customCommandOperation([command mco_mcString]);
+    return OPAQUE_OPERATION(coreOp);
+}
+
 - (MCOIMAPAppendMessageOperation *)appendMessageOperationWithFolder:(NSString *)folder
                                                         messageData:(NSData *)messageData
                                                               flags:(MCOMessageFlag)flags
