@@ -76,24 +76,18 @@ download_dep "cyrus-sasl-android" $cyrus_sasl_build_version
 
 # Start building.
 ANDROID_PLATFORM=android-16
-# Make sure we built only platform we test on thats way quicker
-# archs="x86"
-# for arch in $archs ; do
-#   TARGET_ARCH_ABI=$arch
-#   build
-# done
-
 archs="armeabi armeabi-v7a x86"
 for arch in $archs ; do
   TARGET_ARCH_ABI=$arch
   build
 done
-# ANDROID_PLATFORM=android-21
-# archs="arm64-v8a x86_64"
-# for arch in $archs ; do
-#   TARGET_ARCH_ABI=$arch
-#   build
-# done
+
+ANDROID_PLATFORM=android-21
+archs="arm64-v8a"
+for arch in $archs ; do
+  TARGET_ARCH_ABI=$arch
+  build
+done
 
 cd "$current_dir/../src/java"
 mkdir -p "$current_dir/bin"
@@ -103,7 +97,6 @@ jar cf classes.jar .
 rm -rf "$current_dir/bin/com"
 mkdir -p res
 sed -e "s/android:versionCode=\"1\"/android:versionCode=\"$build_version\"/" "$current_dir/AndroidManifest.xml" > "$current_dir/bin/AndroidManifest.xml"
-cp "$current_dir/$package_name-$build_version.aar" "$current_dir/../../../Android/AndroidExample/app/libs/$package_name-$build_version.aar"
 zip -qry "$current_dir/$package_name-$build_version.aar" .
 
 rm -rf "$current_dir/bin"
