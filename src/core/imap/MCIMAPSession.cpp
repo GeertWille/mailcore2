@@ -369,7 +369,7 @@ void IMAPSession::init()
     mAuthType = AuthTypeSASLNone;
     mConnectionType = ConnectionTypeClear;
     mCheckCertificateEnabled = true;
-    mCertificatePath = MCSTR("/system/etc/security/cacerts");
+    mCertificatePath = NULL;
     mVoIPEnabled = true;
     mDelimiter = 0;
     
@@ -570,7 +570,12 @@ bool IMAPSession::checkCertificate()
 {
     if (!isCheckCertificateEnabled())
         return true;
-    return mailcore::checkCertificate(mImap->imap_stream, hostname());
+    
+    if (mCertificatePath != NULL) {
+        return mailcore::checkCertificate(mCertificatePath, mImap->imap_stream, hostname());
+    } else {
+        return mailcore::checkCertificate(mImap->imap_stream, hostname());
+    }
 }
 
 void IMAPSession::body_progress(size_t current, size_t maximum, void * context)
